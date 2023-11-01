@@ -16,6 +16,14 @@ resource "azurerm_resource_group" "resource_lanchonete" {
   location = "brazilsouth"
 }
 
+resource "azurerm_storage_account" "storage_lanchonete_creusa" {
+  name                     = "storagelanchonetecreusa"
+  resource_group_name      = azurerm_resource_group.resource_lanchonete.name
+  location                 = azurerm_resource_group.resource_lanchonete.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"  
+}
+
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "kubernetes_cluster"
   location            = azurerm_resource_group.resource_lanchonete.location

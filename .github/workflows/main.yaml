@@ -18,6 +18,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      
+      - name: Download TF State
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az storage blob download-batch -d appservice --pattern terraform.tfstate -s ${{ secrets.CONTAINER_NAME }}
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v1
@@ -37,7 +44,13 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -input=false tfplan
-        continue-on-error: true
+      
+      - name: Upload TF State
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az storage blob upload-batch -d ${{ secrets.CONTAINER_NAME }} -s appservice --pattern *.tfstate
 
       - name: Clean up
         run: terraform destroy -auto-approve
