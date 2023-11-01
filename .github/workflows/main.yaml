@@ -25,7 +25,7 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage blob download-batch -d appservice --pattern terraform.tfstate -s ${{ secrets.CONTAINER_NAME }}     
+            az storage blob download-batch -d $GITHUB_WORKSPACE --pattern terraform.tfstate -s ${{ secrets.CONTAINER_NAME }}     
             
       - uses: hashicorp/setup-terraform@v1
         with:
@@ -52,4 +52,4 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az storage blob upload-batch -d ${{ secrets.CONTAINER_NAME }} -s appservice --pattern *.tfstate
+            az storage blob upload-batch -d ${{ secrets.CONTAINER_NAME }} -s $GITHUB_WORKSPACE --pattern *.tfstate
