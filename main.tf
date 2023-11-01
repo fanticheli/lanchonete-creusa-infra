@@ -11,12 +11,12 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "resource_lanchonete" {
+resource "azurerm_resource_group" "resource" {
   name     = "resource_lanchonete"
   location = "brazilsouth"
 }
 
-resource "azurerm_storage_account" "storage_lanchonete_creusa" {
+resource "azurerm_storage_account" "storage" {
   name                     = "storagelanchonetecreusa"
   resource_group_name      = azurerm_resource_group.resource_lanchonete.name
   location                 = azurerm_resource_group.resource_lanchonete.location
