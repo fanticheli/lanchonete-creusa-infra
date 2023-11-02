@@ -38,11 +38,11 @@ resource "azurerm_container_registry" "container_registry" {
   name                     = "acrlanchonete"
   resource_group_name      = azurerm_resource_group.resource.name
   location                 = azurerm_resource_group.resource.location
-  sku                      = "Basic"
+  sku                      = "Premium"
   admin_enabled            = false  
 }
 
-resource "azurerm_role_assignment" "role_assignment" {
+resource "azurerm_role_assignment" "acr_role" {
   scope                = azurerm_container_registry.container_registry.id
   role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.kubernetes_cluster.kubelet_identity[0].object_id  
