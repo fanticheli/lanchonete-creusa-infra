@@ -42,19 +42,9 @@ resource "azurerm_container_registry" "container_registry" {
   admin_enabled            = false  
 }
 
-resource "azurerm_role_definition" "acrpull" {
-  name        = "AcrPull"
-  scope       = azurerm_container_registry.container_registry.id
-  permissions {
-    actions = ["*"]
-    not_actions = []
-  }
-}
-
 resource "azurerm_role_assignment" "role_assignment" {
-  role_definition_id = azurerm_role_definition.acrpull.role_definition_resource_id
-  role_definition_name = "AcrPull"
   scope                = azurerm_container_registry.container_registry.id
+  role_definition_name = "AcrPull"
   principal_id         = azurerm_kubernetes_cluster.kubernetes_cluster.kubelet_identity[0].object_id  
   skip_service_principal_aad_check = true
 }
