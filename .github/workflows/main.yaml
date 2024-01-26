@@ -53,3 +53,4 @@ jobs:
           azcliversion: 2.0.72
           inlineScript: |
             az storage blob upload-batch -d ${{ secrets.CONTAINER_NAME }} -s $GITHUB_WORKSPACE --pattern *.tfstate
+
