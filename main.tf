@@ -21,6 +21,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   location            = "brazilsouth"
   resource_group_name = "resource_lanchonete"
   dns_prefix          = "lanchonete-creusa"
+  api_version = "2024-01-02-preview"
 
   default_node_pool {
     name       = "default"
