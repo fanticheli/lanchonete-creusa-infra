@@ -18,10 +18,9 @@ resource "azurerm_resource_group" "resource" {
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "kubernetes_cluster"
-  location            = "brazilsouth"
-  resource_group_name = "resource_lanchonete"
+  location            = azurerm_resource_group.resource.location
+  resource_group_name = azurerm_resource_group.resource.name
   dns_prefix          = "lanchonete-creusa"
-  api_version = "2024-01-02-preview"
 
   default_node_pool {
     name       = "default"
@@ -32,4 +31,19 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   identity {
     type = "SystemAssigned"
   }
+}
+
+resource "azurerm_container_registry" "container_registry" {
+  name                     = "acrlanchonete"
+  resource_group_name      = azurerm_resource_group.resource.name
+  location                 = azurerm_resource_group.resource.location
+  sku                      = "Premium"
+  admin_enabled            = false  
+}
+
+resource "azurerm_role_assignment" "acr_role" {
+  scope                = azurerm_container_registry.container_registry.id
+  role_definition_name = "AcrPull"
+  principal_id         = azurerm_kubernetes_cluster.kubernetes_cluster.kubelet_identity[0].object_id  
+  skip_service_principal_aad_check = true
 }
