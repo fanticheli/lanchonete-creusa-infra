@@ -18,8 +18,8 @@ resource "azurerm_resource_group" "resource" {
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "kubernetes_cluster"
-  location            = azurerm_resource_group.resource.location
-  resource_group_name = azurerm_resource_group.resource.name
+  location            = "brazilsouth"
+  resource_group_name = "resource_lanchonete"
   dns_prefix          = "lanchonete-creusa"
 
   default_node_pool {
