@@ -13,7 +13,7 @@ provider "azurerm" {
 
 resource "azurerm_resource_group" "resource" {
   name     = "resource_lanchonete"
-  location = "eastus"
+  location = "brazilsouth"
 }
 
 resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
