@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "resource" {
-  name     = "resource_lanchonete"
+  name     = "resource_hackathon"
   location = "brazilsouth"
 }
 
@@ -20,7 +20,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "kubernetes_cluster"
   location            = azurerm_resource_group.resource.location
   resource_group_name = azurerm_resource_group.resource.name
-  dns_prefix          = "lanchonete-creusa"
+  dns_prefix          = "fiap_hackathon"
 
   default_node_pool {
     name       = "default"
@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
 }
 
 resource "azurerm_container_registry" "container_registry" {
-  name                     = "acrlanchonetee"
+  name                     = "acrhackathon"
   resource_group_name      = azurerm_resource_group.resource.name
   location                 = azurerm_resource_group.resource.location
   sku                      = "Premium"
