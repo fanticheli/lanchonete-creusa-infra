@@ -20,7 +20,7 @@ resource "azurerm_kubernetes_cluster" "kubernetes_cluster" {
   name                = "kubernetes_cluster"
   location            = azurerm_resource_group.resource.location
   resource_group_name = azurerm_resource_group.resource.name
-  dns_prefix          = "fiap_hackathon"
+  dns_prefix          = "fiaphackathon"
 
   default_node_pool {
     name       = "default"
